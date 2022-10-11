@@ -11,7 +11,7 @@ import { Grid } from '@mui/material';
 import Rightside from './rightside';
 import Header from './Header';
 
-export default function Appbar() {
+export default function Appbar(props) {
   return (
     <>
       <Box >
@@ -19,8 +19,8 @@ export default function Appbar() {
       </Box>
 
       <Grid container >
-        <Grid item md={3}> <Leftside /> </Grid>
-        <Grid item md={9}>  <Rightside /> </Grid>
+        {/* <Grid item md={3}> <Leftside /> </Grid> */}
+        <Grid item md={12}>  <Rightside props={props} /> </Grid>
       </Grid>
     </>
   )

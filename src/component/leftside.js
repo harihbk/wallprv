@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,6 +8,11 @@ import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Tooltip from '@mui/material/Tooltip';
+import { IconButton } from '@mui/material';
+import TuneIcon from '@mui/icons-material/Tune';
+import CloseIcon from '@mui/icons-material/Close';
+
+
 
 function Checkboxfn(props) {
     const { _data } = props
@@ -60,6 +65,8 @@ function Radiofn(props) {
 
 export default function Leftside() {
 
+    const [fmenuOpen, setFmMenuOPen] = useState(false);
+
     const [product, setProduct] = React.useState({
         "Appael": [],
         "Accessories": ['Hats', 'Stickers', 'Phone Accessories', 'Bags', 'Hair Accessories', 'Desk Mats',
@@ -108,14 +115,25 @@ export default function Leftside() {
         if (a == "Colors") {
             setFilter(prev => ({ ...prev, color: { ...prev.color, checked: Number(i) } }))
         }
+    }
 
+    const toggleMenu = () => {
+        setFmMenuOPen( fmenuOpen ? false : true );
     }
 
 
     return (
         <React.Fragment>
-            <Box sx={{ padding: 5 }} className='sidebar'>
-
+            <IconButton className={`menuButton ${fmenuOpen ? 'icon_open' : 'icon_close'}`} onClick={()=> toggleMenu()  } >
+                { fmenuOpen ? (
+                    <CloseIcon sx={{ color: "000" }}  />
+                ) : (
+                    <TuneIcon sx={{ color: "000" }} />
+                ) }
+            </IconButton>
+    
+            <Box sx={{ padding: 5 }} className={`sidebar ${fmenuOpen ? 'menuopen' : 'menuclose'}`}>
+               
                 <Box className='productFilter'>
                     <Typography >All Products</Typography>
 

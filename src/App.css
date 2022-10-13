@@ -229,3 +229,38 @@ body *,  .css-ahj2mt-MuiTypography-root{
   appearance: none !important;
   margin-top: 20px;
 }
+
+
+@media screen and (min-width: 601px) {
+  body .menuButton{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 11;
+    height: 100vh;
+    overflow-y: scroll;
+    box-sizing: border-box;
+  }
+  .menuclose.sidebar{
+    display: none;
+  }
+  body .menuButton{
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 1111;
+  }
+  body .icon_close {
+      position: absolute !important;
+      right: 21px;
+      top: 64px;
+  }
+}

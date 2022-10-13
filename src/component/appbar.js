@@ -19,8 +19,8 @@ export default function Appbar(props) {
       </Box>
 
       <Grid container >
-        {/* <Grid item md={3}> <Leftside /> </Grid> */}
-        <Grid item md={12}>  <Rightside props={props} /> </Grid>
+        <Grid item md={3}> <Leftside /> </Grid>
+        <Grid item md={9}>  <Rightside props={props} /> </Grid>
       </Grid>
     </>
   )

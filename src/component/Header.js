@@ -69,16 +69,16 @@ function Header() {
                         >
                             <MenuIcon style={{ color : '#000' }}/>
                         </IconButton>
-                        <Box style={{ flexGrow: 1, textAlign: 'left', filter: 'invert(0)' }}>
-                            <img src={logo} style={{ height: 50, color: '#fff' }} />
+                        <Box style={{ flexGrow: 1, textAlign: 'center', filter: 'invert(0)' }}>
+                            <img src={logo} style={{ height: 50, color: '#fff',  transform: `translateX(70%)` }} />
                         </Box>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' }, flexGrow: 1, justifyContent : 'center' }}>
+                        {/* <Box sx={{ display: { xs: 'none', sm: 'block' }, flexGrow: 1, justifyContent : 'center' }}>
                             {navItems.map((item) => (
                                 <Button key={item} sx={{ color: '#000', textTransform: 'capitalize', fontWeight: '500', fontSize: 16 }}>
                                     {item}
                                 </Button>
                             ))}
-                        </Box>
+                        </Box> */}
                         <Box sx={{ display: { xs: 'block', sm: 'block' }, width : 300, textAlign: 'right', justifyContent : 'center' }}>
                             {/* <Button sx={{ color: '#000', marginRight: 2, textTransform : 'capitalize', fontWeight : '500' }}>
                     Login

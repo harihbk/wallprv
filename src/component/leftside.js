@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState , useReducer , useContext } from 'react'
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,7 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { IconButton } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { ProductReducer } from "./store/productreducer"
+import  ProductContext  from "./store/context"
 
 
 function Checkboxfn(props) {
@@ -65,11 +66,39 @@ function Radiofn(props) {
 
 export default function Leftside() {
 
+    //const [ productstate , dispatch ] = useReducer(ProductReducer,[])
+    const [ test , setTest ] = useContext(ProductContext);
+    const [ access , setAccess ] = React.useState([]);
+
+
+    const filterProduct = (a,p) => {
+
+        if(access.includes(p)){
+            let al = [...access]
+            var index = al.indexOf(p);
+                if (index !== -1) {
+                al.splice(index, 1);
+                setAccess(al)
+                }
+        } else {
+          let al = [...access]
+          al.push(p)
+          setAccess(al)
+        }
+
+       
+    }
+
+    React.useEffect(()=>{
+       
+        setTest(access)
+    },[access])
+
     const [fmenuOpen, setFmMenuOPen] = useState(false);
 
     const [product, setProduct] = React.useState({
         "Appael": [],
-        "Accessories": ['Hats', 'Stickers', 'Phone Accessories', 'Bags', 'Hair Accessories', 'Desk Mats',
+        "Accessories": ['Bags', 'T-shirts', 'Round Neck Half Sleeve - 160 GSM', 'Mobiles', 'Fashions', 'Womens Tops',
             'Socks', 'Wall Art', 'Face Masks', 'Laptop Sleeve', 'Notebooks', 'Shoes', 'Beauty', 'Pins', 'Sunglasses', 'Keychains', 'Planners'],
         'Home & Living': []
     })
@@ -138,11 +167,19 @@ export default function Leftside() {
                     <Typography >All Products</Typography>
 
                     {Object.keys(product).map(a => (
-                        <Box className='listitem'>
+                        <Box className='listitem' >
                             <Typography pl={1}>{a}</Typography>
                             {
                                 product[a].length > 0 && product[a].map(p => (
-                                    <Typography pl={4}>{p}</Typography>
+                                    <>
+                                   
+                                    { access.includes(p) && 
+                                        <Typography pl={4} onClick={()=>filterProduct(a,p)} style={{ background : 'aliceblue' }} >{p}</Typography>
+                                    }
+                                    { !access.includes(p) && 
+                                        <Typography pl={4} onClick={()=>filterProduct(a,p)}  >{p}</Typography>
+                                    }
+                                    </>
                                 ))
                             }
                         </Box>

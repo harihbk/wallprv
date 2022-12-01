@@ -1,7 +1,9 @@
-import React from 'react'
+import React , { useContext } from 'react'
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useNavigate } from "react-router-dom";
+import  ProductContext  from "./store/context"
+import _ from "lodash"
 
 const colorsObj = {
   navyblue : '#153084',
@@ -23,6 +25,11 @@ const colorsObj = {
 }
 export default function Rightside(props) {
   let navigate = useNavigate();
+
+  const [ test , setTest ] = useContext(ProductContext)
+
+   
+
 
   const [data, setData] = React.useState([
     {
@@ -594,22 +601,48 @@ export default function Rightside(props) {
     },
   ]);
 
+  const [ datafilter , setDatafilter ] = React.useState(data)
+
+
+  React.useEffect(()=>{
+    let getData = _.cloneDeep(data)
+    if(test){
+   
+    
+     if(test.length > 0){
+      
+          let getresdata = getData.filter(r=> test.includes(r.text) )
+          setDatafilter(getresdata)
+      
+     
+     } else {
+      setDatafilter(getData)
+     }
+
+    console.log(test.length);
+   
+     
+    }
+  },[test]) 
+
+
+
   const changeImg = (index, img) => {
-    let data1 = JSON.parse(JSON.stringify(data));
+
+    let data1 = JSON.parse(JSON.stringify(datafilter));
     data1[index].image = img;
-    setData(data1);
+    setDatafilter(data1);
   }
 
-  console.log(data);
   return (
     <Box sx={{ padding: 2, paddingX : { xs : 3, md: 10 } , marginTop : 3, marginBottom : 10, marginRight: 2  }}>
       <div className="sc-fThYeS dgrySd">
-        <h2 className="sc-BrFsL jkqQKF">{data.length} products</h2>
+        <h2 className="sc-BrFsL jkqQKF">{datafilter.length} products</h2>
         <div data-testid="ProductsMenubar.Widget[Sort]"><div data-testid="dropdown" className="sc-egNfGp dhPHE">
           
           <button className="sc-hKdnnL eAXNjJ"><span>Sort by:</span>Recommended</button></div></div></div>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }} rowSpacing={3}>
-        {data.map((a, i) => (
+        {datafilter.map((a, i) => (
           <>
             <Grid item md={3} sm={6} xs={6} >
               <Box className="productcard" >
@@ -626,16 +659,16 @@ export default function Rightside(props) {
                   { 
                     a.producttype != 'name' && 
                     <Box className="product_colors">
-                      {a.images.length > 0 && a.images.map((data, index) => (
-                        <Box key={index} style={{ backgroundColor: data.color }} onMouseEnter={() => changeImg(i, data.img)}></Box>
+                      {a.images.length > 0 && a.images.map((data1, index) => (
+                        <Box key={index} style={{ backgroundColor: data1.color }} onMouseEnter={() => changeImg(i, data1.img)}></Box>
                       ))}
                     </Box>
                   }
                   { 
                     a.producttype == 'name' && 
                     <Box className="procucttype">
-                      {a.images.length > 0 && a.images.map((data, index) => (
-                        <Box key={index}  onMouseEnter={() => changeImg(i, data.img)}>{data.name}</Box>
+                      {a.images.length > 0 && a.images.map((data2, index) => (
+                        <Box key={index}  onMouseEnter={() => changeImg(i, data2.img)}>{data2.name}</Box>
                       ))}
                     </Box>
                   }
